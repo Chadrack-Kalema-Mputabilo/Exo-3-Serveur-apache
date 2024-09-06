@@ -1,0 +1,82 @@
+Pour mettre en place la journalisation d'un site web avec PHP sur un serveur Apache, vous pouvez suivre les étapes ci-dessous. Nous allons créer deux pages (`index.php` et `help.php`) et enregistrer chaque visite dans un fichier `.txt`.
+
+### Étapes à suivre
+
+1. **Configurer votre serveur Apache** :
+   Assurez-vous que vous avez un serveur Apache avec PHP installé. Vous pouvez utiliser un environnement comme XAMPP, WAMP ou MAMP pour faciliter cette configuration.
+
+2. **Créer la structure des fichiers** :
+   Dans le répertoire `htdocs` (ou le répertoire racine de votre serveur), créez un dossier pour votre projet, par exemple `journalisation-site`. À l'intérieur, créez deux fichiers : `index.php` et `help.php`.
+
+3. **Écrire le code pour journaliser les visites** :
+   Dans chaque fichier PHP, ajoutez le code pour enregistrer les visites dans un fichier log.
+
+   **index.php** :
+
+   ```php
+   <?php
+   // Fonction pour journaliser les visites
+   function logVisit($page) {
+       $logFile = 'visits.log';
+       $currentTime = date('Y-m-d H:i:s');
+       $logEntry = "$currentTime - Visite: $page\n";
+       file_put_contents($logFile, $logEntry, FILE_APPEND);
+   }
+
+   // Journaliser la visite de la page d'accueil
+   logVisit("index.php");
+   ?>
+
+   <!DOCTYPE html>
+   <html lang="fr">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Page d'accueil</title>
+   </head>
+   <body>
+       <h1>Bienvenue sur la page d'accueil</h1>
+       <a href="help.php">Aide</a>
+   </body>
+   </html>
+   ```
+
+   **help.php** :
+
+   ```php
+   <?php
+   // Fonction pour journaliser les visites
+   function logVisit($page) {
+       $logFile = 'visits.log';
+       $currentTime = date('Y-m-d H:i:s');
+       $logEntry = "$currentTime - Visite: $page\n";
+       file_put_contents($logFile, $logEntry, FILE_APPEND);
+   }
+
+   // Journaliser la visite de la page d'aide
+   logVisit("help.php");
+   ?>
+
+   <!DOCTYPE html>
+   <html lang="fr">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Page d'aide</title>
+   </head>
+   <body>
+       <h1>Voici la page d'aide</h1>
+       <a href="index.php">Accueil</a>
+   </body>
+   </html>
+   ```
+
+4. **Vérifier les permissions** :
+   Assurez-vous que le serveur Apache a les permissions nécessaires pour écrire dans le fichier `visits.log`. Vous pouvez le faire en créant le fichier manuellement dans le même répertoire que vos pages PHP et en ajustant les permissions si nécessaire.
+
+5. **Tester votre application** :
+   Ouvrez votre navigateur et accédez à `http://localhost/journalisation-site/index.php` et `http://localhost/journalisation-site/help.php`. Chaque fois que vous visitez ces pages, une entrée sera ajoutée au fichier `visits.log`.
+
+### Résumé
+
+Vous avez maintenant un site web simple avec PHP qui journalise les visites dans un fichier texte. Cette approche peut être étendue pour inclure d'autres fonctionnalités ou pour traiter les données de manière plus sophistiquée selon vos besoins.
